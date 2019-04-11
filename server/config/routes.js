@@ -1,7 +1,7 @@
 const tasks = require('../controllers/tasks');
 
 module.exports = function(app){
-    app.get('/', function (req, res) {
+    app.get('/tasks', function (req, res) {
         tasks.show(req,res);
     });
 
