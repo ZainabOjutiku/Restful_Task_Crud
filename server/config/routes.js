@@ -17,7 +17,6 @@ module.exports = function(app){
 
     app.put('/update/:id/:title/:description/:completed', function (req, res) {
         tasks.update(req,res);
-
     });
 
     app.delete('/delete/:id', function (req, res) {
