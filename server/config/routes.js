@@ -1,6 +1,9 @@
 const tasks = require('../controllers/tasks');
 
 module.exports = function(app){
+    app.post('/fetch', function (req, res){
+        tasks.fecth(req,res)
+    });
     app.get('/tasks', function (req, res) {
         tasks.show(req,res);
     });
