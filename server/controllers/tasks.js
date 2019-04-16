@@ -4,8 +4,7 @@ module.exports={
     show:function(req,res){
         Task.find({}, function (err, tasks) {
             if(err){
-                res.json({errorMsg:"Could not be found", data:tasks})
-            } else {
+             } else {
                 res.json({msg:"Found", data:tasks})
             }
         })
@@ -24,32 +23,32 @@ module.exports={
     },
     new: function (req, res) {
         console.log("POST DATA", req.body);
-        var task = new Task({title: req.params.title, description: req.params.description});
-        task.save(function (err) {
-            if (err) {
-                console.log(err);
-
-
+        var task = new Task({title: req.body.title, description: req.body.description});
+        task.save(function (err, tasks) {
+            if(err){
+                res.json({errorMsg:"Could not be found", data:tasks})
             } else {
-                console.log('successfully added a user!');
-                res.redirect('/');
-
+                res.json({msg:"Found", data:tasks})
             }
         })
     },
     update: function (req,res) {
-        Task.findByIdAndUpdate(req.params.id,{title: req.params.title, description: req.params.description, completed: req.params.completed}, function(err,tasks){
+        Task.findByIdAndUpdate(req.params.id,{title: req.params.title, description: req.params.description}, function(err,tasks){
             if(err){
-                res.json({errorMsg:"Could not be found", data:tasks})
+                res.json({errorMsg:"Could not be found", err})
             } else {
-                res.json({msg:"Could not be found", data:tasks})
+                res.json({msg:"found", data:tasks})
             }
         })
     },
     destroy: function (req, res) {
         var id = req.params.id;
-        Task.remove({_id:id}, function (err){
-            res.redirect('/');
+        Task.remove({_id:id}, function (err,tasks){
+            if(err){
+                res.json({errorMsg:"Could not be found", data:tasks})
+            } else {
+                res.json({msg:"Found", data:tasks})
+            }
         })
     }
 
